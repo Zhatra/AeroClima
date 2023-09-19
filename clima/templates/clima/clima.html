@@ -5,14 +5,14 @@
 
 <form method="post">
   {% csrf_token %}
-        Número de Ticket: <input type="text" name="ticket_number">
-        <input type="submit" value="Consultar Clima por Ticket">
+  Número de Ticket: <input type="text" name="ticket_number" placeholder="Ingresa tu número de Ticket">
+  <input type="submit" value="Consultar Clima por Ticket">
 </form>
 
 <form method="get">
-    <input type="text" name="city_name1" placeholder="Nombre de la ciudad 1">
-    <input type="text" name="city_name2" placeholder="Nombre de la ciudad 2">
-    <input type="submit" value="Buscar">
+  <input type="text" name="city_name1" placeholder="Nombre de la ciudad 1">
+  <input type="text" name="city_name2" placeholder="Nombre de la ciudad 2">
+  <input type="submit" value="Buscar">
 </form>
 
 {% endblock content %}
