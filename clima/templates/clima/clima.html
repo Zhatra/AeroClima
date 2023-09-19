@@ -2,32 +2,18 @@
 
 {% block content %}
 
-  <form>
-    <fieldset>
-      <legend>Ver clima por ticket</legend>
-      <div class="mb-3">
-        <label for="ingresaTicket" class="form-label">Ingresa ticket del vuelo</label>
-        <input type="text" id="ingresaTicket" class="form-control" placeholder="Ticket">
-      </div>
-      <legend>Ver clima por Areopuerto</legend>
-      <div class="mb-3">
-        <label class="form-label">Selecciona Codigo IATA del Aeropuerto del Origen y el Destino</label>
-        <select class="form-select">
-            <option selected>Origen</option>
-            <option value="1">TAM</option>
-            <option value="2">MEX</option>
-            <option value="3">GDL</option>
-        </select>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Destino</option>
-            <option value="1">TAM</option>
-            <option value="2">MEX</option>
-            <option value="3">GDL</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Ver clima</button>
-    </fieldset>
-  </form>
+
+<form method="post">
+  {% csrf_token %}
+        Número de Ticket: <input type="text" name="ticket_number">
+        <input type="submit" value="Consultar Clima por Ticket">
+</form>
+
+<form method="get">
+    <input type="text" name="city_name1" placeholder="Nombre de la ciudad 1">
+    <input type="text" name="city_name2" placeholder="Nombre de la ciudad 2">
+    <input type="submit" value="Buscar">
+</form>
 
 {% endblock content %}
 
