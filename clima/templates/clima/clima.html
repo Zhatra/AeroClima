@@ -15,6 +15,30 @@
   <input type="submit" value="Buscar">
 </form>
 
+{% if weather_data1 %}
+    <h2>Clima en {{ weather_data1.name }}</h2>
+    <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
+    <p>Descripción: {{ weather_data1.weather.0.description }}</p>
+{% endif %}
+
+{% if weather_data2 %}
+    <h2>Clima en {{ weather_data2.name }}</h2>
+    <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
+    <p>Descripción: {{ weather_data2.weather.0.description }}</p>
+{% endif %}
+
+{% if clima_destino %}
+    <h2>Clima en {{ clima_destino.name }}</h2>
+    <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
+    <p>Descripción: {{ clima_destino.weather.0.description }}</p>
+{% endif %}
+
+{% if clima_origen %}
+    <h2>Clima en {{ clima_origen.name }}</h2>
+    <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
+    <p>Descripción: {{ clima_origen.weather.0.description }}</p>
+{% endif %}
+
 {% endblock content %}
 
 <br>
