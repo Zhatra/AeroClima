@@ -1,0 +1,110 @@
+header {
+  /* background-color: #380356; */
+  /* background-image: url(https://i.pinimg.com/originals/60/a8/2c/60a82c6cf7fda046b291e6b2c78ea531.png);
+  background-size: 35%;
+  background-position: center;
+  background-repeat: space; */
+  background-color: black;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 25px;
+  width: 100%;
+  text-align: center;
+  font-size: 70px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+
+}
+
+p {
+  position: relative;
+  font-size: x-large;
+
+}
+
+footer {
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* background-color: #380356; */
+  background-color: black;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: purple;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.body {
+  background-color: white;
+  text-align: center;
+  padding-top: 350px;
+  padding-bottom: 400px;
+
+}
+
+.ticket {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-bottom: 20px;
+}
+
+.ori {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+input {
+  border-radius: 15px;
+  width: 350px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border-color: black;
+  border-style: double;
+  text-align: justify;
+}
+
+
+button {
+  background-color: transparent;
+  color: #b000b2;
+  border-color: #b000b2;
+  border-radius: 50px;
+  height: 40px;
+  width: fit-content;
+  text-align: center;
+  border-style: double;
+}
+
+button:hover {
+  background-color: #b000b2;
+  border-color: #b000b2;
+  color: white;
+  border-radius: 50px;
+  height: 40px;
+  width: fit-content;
+}
