@@ -1,9 +1,5 @@
 header {
-  /* background-color: #380356; */
-  /* background-image: url(https://i.pinimg.com/originals/60/a8/2c/60a82c6cf7fda046b291e6b2c78ea531.png);
-  background-size: 35%;
-  background-position: center;
-  background-repeat: space; */
+
   background-color: black;
   position: fixed;
   left: 0;
@@ -107,4 +103,20 @@ button:hover {
   border-radius: 50px;
   height: 40px;
   width: fit-content;
+}
+
+button:active {
+  background-color: white;
+  border-color: white;
+  color: white;
+  border-radius: 50px;
+  height: 40px;
+  width: fit-content;
+}
+
+.regresar {
+  background-color: white;
+  text-align: center;
+  padding-top: 350px;
+  padding-bottom: 400px;
 }
