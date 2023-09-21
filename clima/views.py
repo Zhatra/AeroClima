@@ -4,17 +4,123 @@ import requests
 from django.conf import settings
 import  pandas as pd
 from django.core.cache import cache
+import Levenshtein
+
+
+IATA_CODES = {
+    'TLC': 'Toluca',
+    'MTY': 'Monterrey',
+    'MEX': 'Ciudad de Mexico',
+    'TAM': 'Tampico',
+    'GDL': 'Guadalajara',
+    'CJS': 'Ciudad Juarez',
+    'CUN': 'Cancun',
+    'TIJ': 'Tijuana',
+    'HMO': 'Hermosillo',
+    'CME': 'Ciudad del Carmen',
+    'MID': 'Merida',
+    'CTM': 'Chetumal',
+    'VER': 'Veracruz',
+    'OAX': 'Oaxaca',
+    'HUX': 'Huatulco',
+    'PVR': 'Puerto Vallarta',
+    'PXM': 'Puerto Escondido',
+    'ACA': 'Acapulco',
+    'ZIH': 'Zihuatanejo',
+    'AGU': 'Aguascalientes',
+    'VSA': 'Villahermosa',
+    'CZM': 'Cozumel',
+    'CUU': 'Chihuahua',
+    'TRC': 'Torreon',
+    'QRO': 'Queretaro',
+    'BJX': 'Leon/Guanajuato',
+    'PBC': 'Puebla',
+    'SLP': 'San Luis Potosi',
+    'ZCL': 'Zacatecas',
+    'LIM': 'Lima',
+    'HAV': 'La Habana',
+    'BOG': 'Bogota',
+    'MIA': 'Miami',
+    'LAX': 'Los Angeles',
+    'JFK': 'Nueva York',
+    'MZT': 'Mazatlan',
+    'GUA': 'Ciudad de Guatemala',
+    'BZE': 'Ciudad de Belice',
+    'DFW': 'Dallas',
+    'ORD': 'Chicago',
+    'PHX': 'Phoenix',
+    'PHL': 'Filadelfia',
+    'CLT': 'Charlotte',
+    'YYZ': 'Toronto',
+    'IAH': 'Houston',
+    'YVR': 'Vancouver',
+    'CDG': 'Paris',
+    'AMS': 'Amsterdam',
+    'ATL': 'Atlanta',
+    'CEN': 'Ciudad Obregon',
+    'MAD': 'Madrid',
+    'SCL': 'Santiago',
+}
+
+
+def fetch_from_cache_or_api(url):
+    # Usa la URL como clave para el caché
+    cache_key = f"api_cache_{url}"
+    cached_response = cache.get(cache_key)
+
+    if cached_response:
+        return cached_response
+
+    # Si no está en caché, haz la llamada real
+    response = requests.get(url)
+    data = response.json()
+
+    # Guarda la respuesta en caché por un tiempo determinado (en este caso, 43200 segundos = 12 horas)
+    cache.set(cache_key, data, 43200)
+
+    return data
 
 # Create your views here.
+def get_weather(city_name):
+   url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
+   return fetch_from_cache_or_api(url)
 
+def consultar_clima(latitud, longitud):
+    url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
+    # Aquí puedes procesar la respuesta y extraer la información que necesitas
+    return fetch_from_cache_or_api(url)
+
+
+
+
+def get_city_from_iata(code):
+    # Retorna el nombre de la ciudad si el código existe en el diccionario.
+    city = IATA_CODES.get(code)
+
+    if city:
+        return city
+
+    # Si el código no se encuentra en el diccionario, busca la ciudad más parecida.
+    min_distance = float('inf')
+    closest_city = None
+
+    for city_name in IATA_CODES.values():
+        distance = Levenshtein.distance(code.lower(), city_name.lower())
+        if distance < min_distance:
+            min_distance = distance
+            closest_city = city_name
+
+    # Por ejemplo, si la distancia es 1 o 2, consideramos que es una coincidencia cercana.
+    # Puedes ajustar este umbral según lo que consideres adecuado.
+    if min_distance <= 2:
+        return closest_city
+
+    # Si no encuentra una coincidencia cercana, simplemente retorna el código ingresado.
+    return code
 
 def index(request):
-    
-    return render(request, 'clima/clima.html')
-
-def index(request):
-    city_name1 = request.GET.get('city_name1','')
-    city_name2 = request.GET.get('city_name2','')
+    city_name1 = get_city_from_iata(request.GET.get('city_name1', ''))
+    city_name2 = get_city_from_iata(request.GET.get('city_name2', ''))
     weather_data1 = {}
     weather_data2 = {}
     clima_origen = {}
