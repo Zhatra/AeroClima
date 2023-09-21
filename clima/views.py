@@ -6,7 +6,61 @@ import  pandas as pd
 from django.core.cache import cache
 import Levenshtein
 
-# Create your views here.
+
+IATA_CODES = {
+    'TLC': 'Toluca',
+    'MTY': 'Monterrey',
+    'MEX': 'Ciudad de Mexico',
+    'TAM': 'Tampico',
+    'GDL': 'Guadalajara',
+    'CJS': 'Ciudad Juarez',
+    'CUN': 'Cancun',
+    'TIJ': 'Tijuana',
+    'HMO': 'Hermosillo',
+    'CME': 'Ciudad del Carmen',
+    'MID': 'Merida',
+    'CTM': 'Chetumal',
+    'VER': 'Veracruz',
+    'OAX': 'Oaxaca',
+    'HUX': 'Huatulco',
+    'PVR': 'Puerto Vallarta',
+    'PXM': 'Puerto Escondido',
+    'ACA': 'Acapulco',
+    'ZIH': 'Zihuatanejo',
+    'AGU': 'Aguascalientes',
+    'VSA': 'Villahermosa',
+    'CZM': 'Cozumel',
+    'CUU': 'Chihuahua',
+    'TRC': 'Torreon',
+    'QRO': 'Queretaro',
+    'BJX': 'Leon/Guanajuato',
+    'PBC': 'Puebla',
+    'SLP': 'San Luis Potosi',
+    'ZCL': 'Zacatecas',
+    'LIM': 'Lima',
+    'HAV': 'La Habana',
+    'BOG': 'Bogota',
+    'MIA': 'Miami',
+    'LAX': 'Los Angeles',
+    'JFK': 'Nueva York',
+    'MZT': 'Mazatlan',
+    'GUA': 'Ciudad de Guatemala',
+    'BZE': 'Ciudad de Belice',
+    'DFW': 'Dallas',
+    'ORD': 'Chicago',
+    'PHX': 'Phoenix',
+    'PHL': 'Filadelfia',
+    'CLT': 'Charlotte',
+    'YYZ': 'Toronto',
+    'IAH': 'Houston',
+    'YVR': 'Vancouver',
+    'CDG': 'Paris',
+    'AMS': 'Amsterdam',
+    'ATL': 'Atlanta',
+    'CEN': 'Ciudad Obregon',
+    'MAD': 'Madrid',
+    'SCL': 'Santiago',
+}
 
 
 def fetch_from_cache_or_api(url):
@@ -32,7 +86,7 @@ def get_weather(city_name):
    return fetch_from_cache_or_api(url)
 
 def consultar_clima(latitud, longitud):
-    url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&unists=metric&lang=es"
+    url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
     # Aquí puedes procesar la respuesta y extraer la información que necesitas
     return fetch_from_cache_or_api(url)
 
@@ -64,10 +118,9 @@ def get_city_from_iata(code):
     # Si no encuentra una coincidencia cercana, simplemente retorna el código ingresado.
     return code
 
-
 def index(request):
-    city_name1 = request.GET.get('city_name1','')
-    city_name2 = request.GET.get('city_name2','')
+    city_name1 = get_city_from_iata(request.GET.get('city_name1', ''))
+    city_name2 = get_city_from_iata(request.GET.get('city_name2', ''))
     weather_data1 = {}
     weather_data2 = {}
     clima_origen = {}
