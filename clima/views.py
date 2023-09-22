@@ -112,7 +112,7 @@ def get_city_from_iata(code):
 
     # Por ejemplo, si la distancia es 1 o 2, consideramos que es una coincidencia cercana.
     # Puedes ajustar este umbral según lo que consideres adecuado.
-    if min_distance <= 2:
+    if min_distance <= 3:
         return closest_city
 
     # Si no encuentra una coincidencia cercana, simplemente retorna el código ingresado.
