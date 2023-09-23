@@ -95,13 +95,18 @@ def fetch_from_cache_or_api(url):
 
 def get_weather(city_name):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
-    return fetch_from_cache_or_api(url)
+    data = fetch_from_cache_or_api(url)
+    icon_code = data['weather'][0]['icon']
+    data['weather_icon_url'] = f"https://openweathermap.org/img/wn/{icon_code}.png"
+    return data
 
 
 def consultar_clima(latitud, longitud):
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
-    # Aquí puedes procesar la respuesta y extraer la información que necesitas
-    return fetch_from_cache_or_api(url)
+    data = fetch_from_cache_or_api(url)
+    icon_code = data['weather'][0]['icon']
+    data['weather_icon_url'] = f"https://openweathermap.org/img/wn/{icon_code}.png"
+    return data
 
 
 def get_city_from_iata(code):
@@ -137,6 +142,7 @@ def index(request):
     weather_data2 = {}
     clima_origen = {}
     clima_destino = {}
+    is_ticket_search = False
 
     if city_name1:
         weather_data1 = get_weather(
@@ -151,6 +157,7 @@ def index(request):
         ticket_number = request.POST['ticket_number']
 
         if ticket_number is not "":
+            is_ticket_search = True
             # Cargar la base de datos con Pandas
             df = pd.read_csv('dataset2.csv')
 
@@ -167,5 +174,6 @@ def index(request):
         'weather_data1': weather_data1,
         'weather_data2': weather_data2,
         'clima_origen': clima_origen,
-        'clima_destino': clima_destino
+        'clima_destino': clima_destino,
+        'is_ticket_search': is_ticket_search
     })
