@@ -2,72 +2,76 @@
 
 {% block content %}
 
-<header>
-  <h>Aero-Clima</h>
-  <h4>EL CLIMA DEL ORIGEN Y DESTINO DE TU VUELO</h4>
-</header>
-
 <div class="body">
 
   <form method="post">
     {% csrf_token %}
 
     <div class="ticket">
-      <input type="text" name="ticket_number" placeholder="Ingresa tu número de Ticket . . .">
-      <button type="submit" onclick="clima.html">Consultar Clima por Ticket</button>
+      <label for="número_de_ticket" class="form-label">Ingresa tu número de Ticket</label>
+      <br>
+      <input type="text" name="ticket_number" placeholder="Ticket . . .">
+      <button type="submit">Consultar Clima por Ticket</button>
     </div>
 
-  </form>
+    <h5>O BIEN</h5>
 
-  <p>o bien</p>
+  </form>
 
   <div class="ori">
     <form method="get">
-      <input type="text" name="city_name1" placeholder="Ingresa Ciudad de Origen . . .">
-      <input type="text" name="city_name2" placeholder="Ingresa Ciudad de Destino . . .">
+      <label for="origen_y_destino" class="form-label">Ingresa la Ciudad de Origen y Destino</label>
+      <br>
+      <input type="text" name="city_name1" placeholder="Origen . . .">
+      <input type="text" name="city_name2" placeholder="Destino . . .">
       <button type="submit">Consultar Clima</button>
+
   </div>
   <br>
-  {% if weather_data1 %}
-  <h2>Clima en {{ weather_data1.name }}</h2>
-  <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
-  <p>Descripción: {{ weather_data1.weather.0.description }}</p>
-  {% endif %}
+  <br>
 
-  {% if weather_data2 %}
-  <h2>Clima en {{ weather_data2.name }}</h2>
-  <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
-  <p>Descripción: {{ weather_data2.weather.0.description }}</p>
-  {% endif %}
+  <div class="container text-center">
+    {% if weather_data1 %}
+    <div class="row">
 
-  {% if clima_destino %}
-  <h2>Clima en {{ clima_destino.name }}</h2>
-  <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
-  <p>Descripción: {{ clima_destino.weather.0.description }}</p>
-  {% endif %}
+      <div class="col-sm-5 col-md-6">
+        <h2>Origen: <strong>Clima en {{ weather_data1.name }}</strong></h2>
+        <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
+        <p>Descripción: {{ weather_data1.weather.0.description }}</p>
+      </div>
+      {% endif %}
 
-  {% if clima_origen %}
-  <h2>Clima en {{ clima_origen.name }}</h2>
-  <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
-  <p>Descripción: {{ clima_origen.weather.0.description }}</p>
-  {% endif %}
+      {% if weather_data2 %}
+      <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+        <h2>Destino: <strong>Clima en {{ weather_data2.name }}</strong></h2>
+        <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
+        <p>Descripción: {{ weather_data2.weather.0.description }}</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <br>
+  <br>
+  <div class="container text-center">
+    {% if clima_destino %}
+    <div class="row">
+      <div class="col-sm-5 col-md-6">
+        <h2>Origen: <strong>Clima en {{ clima_origen.name }}</strong></h2>
+        <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
+        <p>Descripción: {{ clima_origen.weather.0.description }}</p>
+      </div>
+      {% endif %}
 
-  {% endblock content %}
-  </form>
-
-
-  <footer>
-    <img
-      src="https://camo.githubusercontent.com/fe3b97974431a5652f0572ef8dd3c46d206d0aeb9658c7dd1f9c766ed89e4215/68747470733a2f2f69636f6e2d6c6962726172792e636f6d2f696d616765732f6769746875622d69636f6e2d77686974652f6769746875622d69636f6e2d77686974652d362e6a7067"
-      alt="Logo" height="60">
-    <a href="https://github.com/Zhatra/AeroClima.git"> Link al repositorio.</a>
-  </footer>
+      {% if clima_origen %}
+      <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+        <h2>Destino: <strong>Clima en {{ clima_destino.name }}</strong></h2>
+        <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
+        <p>Descripción: {{ clima_destino.weather.0.description }}</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 
 </div>
-
-
-
-
-
-
-<br>
+{% endblock content %}
+</form>

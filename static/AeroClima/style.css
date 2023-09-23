@@ -4,7 +4,7 @@ header {
   position: fixed;
   left: 0;
   top: 0;
-  padding: 25px;
+  padding: 15px;
   width: 100%;
   text-align: center;
   font-size: 70px;
@@ -15,19 +15,28 @@ header {
 
 p {
   position: relative;
-  font-size: x-large;
+  font-size: large;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
+h2 {
+  font-size: x-large;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h5 {
+  font-size: x-large;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #944bed;
 }
 
 footer {
-
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  /* background-color: #380356; */
   background-color: black;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   color: white;
 }
@@ -61,6 +70,7 @@ a:active {
   text-align: center;
   padding-top: 350px;
   padding-bottom: 400px;
+  position: initial;
 
 }
 
@@ -87,8 +97,8 @@ input {
 
 button {
   background-color: transparent;
-  color: #b000b2;
-  border-color: #b000b2;
+  color: #944bed;
+  border-color: #944bed;
   border-radius: 50px;
   height: 40px;
   width: fit-content;
@@ -97,8 +107,8 @@ button {
 }
 
 button:hover {
-  background-color: #b000b2;
-  border-color: #b000b2;
+  background-color: #944bed;
+  border-color: #944bed;
   color: white;
   border-radius: 50px;
   height: 40px;
@@ -114,9 +124,11 @@ button:active {
   width: fit-content;
 }
 
-.regresar {
-  background-color: white;
-  text-align: center;
-  padding-top: 350px;
-  padding-bottom: 400px;
+.row {
+  border-style: groove;
+  border-color: #944bed;
+  background-color: transparent;
+  color: black;
+  border-radius: 50px;
+  height: fit-content;
 }
