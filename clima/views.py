@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import requests
 from django.conf import settings
-import  pandas as pd
+import pandas as pd
 from django.core.cache import cache
 import Levenshtein
 
@@ -62,6 +62,16 @@ IATA_CODES = {
     'SCL': 'Santiago',
 }
 
+IMAGES = {
+    'Clear',
+    'Clouds',
+    'Drizzle',
+    'Else',
+    'Rain',
+    'Snow',
+    'Thunderstorms',
+}
+
 
 def fetch_from_cache_or_api(url):
     # Usa la URL como clave para el caché
@@ -81,16 +91,17 @@ def fetch_from_cache_or_api(url):
     return data
 
 # Create your views here.
+
+
 def get_weather(city_name):
-   url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
-   return fetch_from_cache_or_api(url)
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
+    return fetch_from_cache_or_api(url)
+
 
 def consultar_clima(latitud, longitud):
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
     # Aquí puedes procesar la respuesta y extraer la información que necesitas
     return fetch_from_cache_or_api(url)
-
-
 
 
 def get_city_from_iata(code):
@@ -118,6 +129,7 @@ def get_city_from_iata(code):
     # Si no encuentra una coincidencia cercana, simplemente retorna el código ingresado.
     return code
 
+
 def index(request):
     city_name1 = get_city_from_iata(request.GET.get('city_name1', ''))
     city_name2 = get_city_from_iata(request.GET.get('city_name2', ''))
@@ -128,29 +140,32 @@ def index(request):
 
     if city_name1:
         weather_data1 = get_weather(
-                city_name1
-                )
+            city_name1
+        )
     if city_name2:
         weather_data2 = get_weather(
-                city_name2
-                )
-    #Buscar Clima por Ticket
+            city_name2
+        )
+    # Buscar Clima por Ticket
     if request.method == 'POST':
         ticket_number = request.POST['ticket_number']
 
-        # Cargar la base de datos con Pandas
-        df = pd.read_csv('dataset2.csv')
+        if ticket_number is not "":
+            # Cargar la base de datos con Pandas
+            df = pd.read_csv('dataset2.csv')
 
-        # Buscar el ticket en la base de datos
-        ticket_data = df[df['num_ticket'] == ticket_number].iloc[0]
+            # Buscar el ticket en la base de datos
+            ticket_data = df[df['num_ticket'] == ticket_number].iloc[0]
 
-        # Consultar clima de origen y destino usando OpenWeatherMap
-        clima_origen = consultar_clima(ticket_data['origin_latitude'], ticket_data['origin_longitude'])
-        clima_destino = consultar_clima(ticket_data['destination_latitude'], ticket_data['destination_longitude'])
+            # Consultar clima de origen y destino usando OpenWeatherMap
+            clima_origen = consultar_clima(
+                ticket_data['origin_latitude'], ticket_data['origin_longitude'])
+            clima_destino = consultar_clima(
+                ticket_data['destination_latitude'], ticket_data['destination_longitude'])
 
-    return render(request, 'clima/clima.html',{
-        'weather_data1':weather_data1,
-        'weather_data2':weather_data2,
-        'clima_origen':clima_origen,
-        'clima_destino':clima_destino
+    return render(request, 'clima/clima.html', {
+        'weather_data1': weather_data1,
+        'weather_data2': weather_data2,
+        'clima_origen': clima_origen,
+        'clima_destino': clima_destino
     })
