@@ -59,7 +59,7 @@ IMAGES = {
     'Drizzle': 'https://cdn-icons-png.flaticon.com/128/4015/4015265.png',
     'Rain': 'https://cdn-icons-png.flaticon.com/128/4015/4015291.png',
     'Snow': 'https://cdn-icons-png.flaticon.com/128/4015/4015402.png',
-    'Thunderstorms': 'https://cdn-icons-png.flaticon.com/128/4015/4015508.png',
+    'Thunderstorm': 'https://cdn-icons-png.flaticon.com/128/4015/4015508.png',
     'Else': 'https://cdn-icons-png.flaticon.com/128/4015/4015221.png',
 }
 
@@ -69,6 +69,6 @@ PIC_CODE = {
     'Drizzle',
     'Rain',
     'Snow',
-    'Thunderstorms',
+    'Thunderstorm',
     'Else',
 }
