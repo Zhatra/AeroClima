@@ -1,4 +1,7 @@
 """
+
+
+
 URL configuration for AeroClima project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,7 +19,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+# Incluye todas las rutas definidas en el archivo "urls.py" de la aplicación "clima"
+# Cuando se accede a la URL raíz (""), se redirige a las rutas de "clima"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("clima.urls")),

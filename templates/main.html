@@ -1,36 +1,58 @@
+
+<!-- Define el tipo de documento como HTML5 -->
 <!DOCTYPE html>
+
+<!-- Carga las etiquetas y filtros estáticos de Django para manejar archivos estáticos -->
 {% load static %}
+
+<!-- Inicio del documento HTML con el atributo de idioma establecido en inglés -->
 <html lang="en">
 
 <head>
+    <!-- Define la codificación de caracteres del documento como UTF-8 -->
     <meta charset="UTF-8">
+    <!-- Define las propiedades de visualización para dispositivos móviles y escalado inicial -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página web -->
     <title>Aero-Clima</title>
+    <!-- Icono de la página web -->
     <link rel="icon" type="image/x-icon" href="https://cdn.jim-nielsen.com/ios/512/weather-2021-12-07.png">
+    <!-- Enlaza a la hoja de estilos de Bootstrap desde un CDN (Content Delivery Network) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Enlaza a la hoja de estilos personalizada usando la etiqueta estática de Django -->
     <link rel="stylesheet" href="{% static 'AeroClima/style.css' %}">
 </head>
 
+<!-- Encabezado de la página -->
 <header>
+    <!-- Título principal del sitio web -->
     <h>Aero-Clima</h>
+    <!-- Subtítulo o eslogan del sitio web -->
     <h4>EL CLIMA DEL ORIGEN Y DESTINO DE TU VUELO</h4>
 </header>
 
+<!-- Contenido principal del cuerpo de la página -->
 <body>
+    <!-- Bloque de contenido que puede ser reemplazado o extendido en otras plantillas -->
     {% block content %}
     {% endblock content %}
 
+    <!-- Enlaza a los scripts de JavaScript de Bootstrap desde un CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
 
 </body>
 
+<!-- Pie de página del sitio web -->
 <footer>
+    <!-- Imagen del logo (en este caso el logo GitHub) -->
     <img src="https://camo.githubusercontent.com/fe3b97974431a5652f0572ef8dd3c46d206d0aeb9658c7dd1f9c766ed89e4215/68747470733a2f2f69636f6e2d6c6962726172792e636f6d2f696d616765732f6769746875622d69636f6e2d77686974652f6769746875622d69636f6e2d77686974652d362e6a7067"
         alt="Logo" height="60">
+    <!-- Enlace al repositorio de GitHub del proyecto -->
     <a href="https://github.com/Zhatra/AeroClima.git"> Link al repositorio.</a>
 </footer>
 
+<!-- Fin del documento HTML -->
 </html>

@@ -1,134 +1,148 @@
+
+/* Estilos para el encabezado de la página */
 header {
-
-  background-color: black;
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 15px;
-  width: 100%;
-  text-align: center;
-  font-size: 70px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: white;
-
+  background-color: Black; /* Color de fondo negro */
+  position: fixed; /* Posición fija en la página */
+  left: 0; /* Alineado a la izquierda */
+  top: 0; /* Alineado arriba */
+  padding: 15px; /* Espaciado interno de 15px */
+  width: 100%; /* Ocupa todo el ancho de la página */
+  text-align: center; /* Centra el texto */
+  font-size: 55px; /* Tamaño de fuente de 55px */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Familias de fuentes a usar */
+  color: white; /* Color de texto blanco */
 }
 
+/* Estilos para los párrafos */
 p {
-  position: relative;
-  font-size: large;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: relative; /* Posición relativa */
+  font-size: large; /* Tamaño de fuente grande */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Familias de fuentes a usar */
 }
 
+/* Estilos para los encabezados h2 */
 h2 {
-  font-size: x-large;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: x-large; /* Tamaño de fuente extra grande */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Familias de fuentes a usar */
 }
 
+/* Estilos para los encabezados h5 */
 h5 {
-  font-size: x-large;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: #944bed;
+  font-size: x-large; /* Tamaño de fuente extra grande */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Familias de fuentes a usar */
+  color: #944bed; /* Color de texto morado */
 }
 
+/* Estilos para el pie de página */
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: black;
-  padding: 15px;
-  text-align: center;
-  color: white;
+  position: fixed; /* Posición fija en la página */
+  left: 0; /* Alineado a la izquierda */
+  bottom: 0; /* Alineado abajo */
+  width: 100%; /* Ocupa todo el ancho de la página */
+  background-color: black; /* Color de fondo negro */
+  padding: 15px; /* Espaciado interno de 15px */
+  text-align: center; /* Centra el texto */
+  color: white; /* Color de texto blanco */
 }
 
+/* Estilos para los enlaces en su estado normal */
 a:link {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
+  color: white; /* Color de texto blanco */
+  background-color: transparent; /* Sin color de fondo */
+  text-decoration: none; /* Sin subrayado */
 }
 
+/* Estilos para los enlaces visitados */
 a:visited {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
+  color: white; /* Color de texto blanco */
+  background-color: transparent; /* Sin color de fondo */
+  text-decoration: none; /* Sin subrayado */
 }
 
+/* Estilos para los enlaces al pasar el cursor sobre ellos */
 a:hover {
-  color: purple;
-  background-color: transparent;
-  text-decoration: underline;
+  color: purple; /* Color de texto morado */
+  background-color: transparent; /* Sin color de fondo */
+  text-decoration: underline; /* Subrayado */
 }
 
+/* Estilos para los enlaces en su estado activo (al ser presionados) */
 a:active {
-  color: white;
-  background-color: transparent;
-  text-decoration: underline;
+  color: white; /* Color de texto blanco */
+  background-color: transparent; /* Sin color de fondo */
+  text-decoration: underline; /* Subrayado */
 }
 
+/* Estilos para el cuerpo principal de la página */
 .body {
-  background-color: white;
-  text-align: center;
-  padding-top: 350px;
-  padding-bottom: 400px;
-  position: initial;
-
+  background-color: white; /* Color de fondo blanco */
+  text-align: center; /* Centra el texto */
+  padding-top: 350px; /* Espaciado superior de 350px */
+  padding-bottom: 400px; /* Espaciado inferior de 400px */
+  position: initial; /* Posición inicial (valor por defecto) */
 }
 
+/* Estilos para el contenedor de ticket */
 .ticket {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  padding-bottom: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Familias de fuentes a usar */
+  padding-bottom: 20px; /* Espaciado inferior de 20px */
 }
 
+/* Estilos para el contenedor de origen */
 .ori {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Familias de fuentes a usar */
 }
 
+/* Estilos para los campos de entrada */
 input {
-  border-radius: 15px;
-  width: 350px;
-  height: 40px;
-  background-color: white;
-  color: black;
-  border-color: black;
-  border-style: double;
-  text-align: justify;
+  border-radius: 15px; /* Bordes redondeados */
+  width: 350px; /* Ancho de 350px */
+  height: 40px; /* Alto de 40px */
+  background-color: white; /* Color de fondo blanco */
+  color: black; /* Color de texto negro */
+  border-color: black; /* Color de borde negro */
+  border-style: double; /* Estilo de borde doble */
+  text-align: justify; /* Justifica el texto */
 }
 
-
+/* Estilos para los botones */
 button {
-  background-color: transparent;
-  color: #944bed;
-  border-color: #944bed;
-  border-radius: 50px;
-  height: 40px;
-  width: fit-content;
-  text-align: center;
-  border-style: double;
+  background-color: transparent; /* Sin color de fondo */
+  color: #944bed; /* Color de texto morado */
+  border-color: #944bed; /* Color de borde morado */
+  border-radius: 50px; /* Bordes redondeados */
+  height: 40px; /* Alto de 40px */
+  width: fit-content; /* Ancho ajustado al contenido */
+  text-align: center; /* Centra el texto */
+  border-style: double; /* Estilo de borde doble */
 }
 
+/* Estilos para los botones al pasar el cursor sobre ellos */
 button:hover {
-  background-color: #944bed;
-  border-color: #944bed;
-  color: white;
-  border-radius: 50px;
-  height: 40px;
-  width: fit-content;
+  background-color: #944bed; /* Color de fondo morado */
+  border-color: #944bed; /* Color de borde morado */
+  color: white; /* Color de texto blanco */
+  border-radius: 50px; /* Bordes redondeados */
+  height: 40px; /* Alto de 40px */
+  width: fit-content; /* Ancho ajustado al contenido */
 }
 
+/* Estilos para los botones en su estado activo (al ser presionados) */
 button:active {
-  background-color: white;
-  border-color: white;
-  color: white;
-  border-radius: 50px;
-  height: 40px;
-  width: fit-content;
+  background-color: white; /* Color de fondo blanco */
+  border-color: white; /* Color de borde blanco */
+  color: white; /* Color de texto blanco */
+  border-radius: 50px; /* Bordes redondeados */
+  height: 40px; /* Alto de 40px */
+  width: fit-content; /* Ancho ajustado al contenido */
 }
 
+/* Estilos para las filas */
 .row {
-  border-style: groove;
-  border-color: #944bed;
-  background-color: transparent;
-  color: black;
-  border-radius: 50px;
-  height: fit-content;
+  border-style: groove; /* Estilo de borde con relieve */
+  border-color: #944bed; /* Color de borde morado */
+  background-color: transparent; /* Sin color de fondo */
+  color: black; /* Color de texto negro */
+  border-radius: 50px; /* Bordes redondeados */
+  height: fit-content; /* Alto ajustado al contenido */
 }

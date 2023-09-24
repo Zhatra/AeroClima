@@ -1,13 +1,26 @@
+
+{# Extiende la plantilla base "main.html" #}
 {% extends 'main.html' %}
 
+{# Define el contenido que se insertará en el bloque "content" de "main.html" #}
 {% block content %}
 
+{# Carga las etiquetas y filtros estáticos de Django para manejar archivos estáticos #}
 {% load static %}
 
 <div class="body">
 
+  {# Formulario para ingresar el número de ticket y consultar el clima #}
   <form method="post">
+    {# Token de seguridad para formularios POST en Django #}
     {% csrf_token %}
+
+    {# Muestra un mensaje de error si existe #}
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+    {{ error_message }}
+    </div>
+    {% endif %}
 
     <div class="ticket">
       <label for="número_de_ticket" class="form-label">Ingresa tu número de Ticket</label>
@@ -20,6 +33,7 @@
 
   </form>
 
+  {# Formulario para ingresar las ciudades de origen y destino y consultar el clima #}
   <div class="ori">
     <form method="get">
       <label for="origen_y_destino" class="form-label">Ingresa la Ciudad de Origen y Destino</label>
@@ -27,63 +41,62 @@
       <input type="text" name="city_name1" placeholder="Origen . . .">
       <input type="text" name="city_name2" placeholder="Destino . . .">
       <button type="submit">Consultar Clima</button>
-
+    </form>
   </div>
   <br>
   <br>
 
   <div class="container text-center">
+    {# Si la consulta no es por ticket, muestra el clima de las ciudades ingresadas #}
     {% if not is_ticket_search %}
-    {% if weather_data1 %}
-    <div class="row">
+        {% if weather_data1 %}
+        <div class="row">
+          <div class="col-sm-5 col-md-6">
+            <h2>Origen: <strong>Clima en {{ weather_data1.name }}</strong></h2>
+            <img src="{{ weather_data1.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
+            <p>Descripción: {{ weather_data1.weather.0.description }}</p>
+          </div>
+        {% endif %}
 
-      <div class="col-sm-5 col-md-6">
-        <h2>Origen: <strong>Clima en {{ weather_data1.name }}</strong></h2>
-        <img src="{{ weather_data1.weather_icon }}" alt="Ícono del clima" height="200px">
-        <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
-        <p>Descripción: {{ weather_data1.weather.0.description }}</p>
-      </div>
-      {% endif %}
-
-      {% if weather_data2 %}
-      <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
-        <h2>Destino: <strong>Clima en {{ weather_data2.name }}</strong></h2>
-
-        <img src="{{ weather_data2.weather_icon }}" alt="Ícono del clima" height="200px">
-        <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
-        <p>Descripción: {{ weather_data2.weather.0.description }}</p>
-      </div>
-    </div>
-    {% endif %}
+        {% if weather_data2 %}
+          <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+            <h2>Destino: <strong>Clima en {{ weather_data2.name }}</strong></h2>
+            <img src="{{ weather_data2.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
+            <p>Descripción: {{ weather_data2.weather.0.description }}</p>
+          </div>
+        </div>
+        {% endif %}
     {% endif %}
   </div>
 
   <div class="container text-center">
+    {# Si la consulta es por ticket, muestra el clima de las coordenadas del ticket #}
     {% if is_ticket_search %}
-    {% if clima_destino %}
-    <div class="row">
-      <div class="col-sm-5 col-md-6">
-        <h2>Origen: <strong>Clima en {{ clima_origen.name }}</strong></h2>
+        {% if clima_destino %}
+        <div class="row">
+          <div class="col-sm-5 col-md-6">
+            <h2>Origen: <strong>Clima en {{ clima_origen.name }}</strong></h2>
+            <img src="{{ clima_origen.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
+            <p>Descripción: {{ clima_origen.weather.0.description }}</p>
+          </div>
+        {% endif %}
 
-        <img src="{{ clima_origen.weather_icon }}" alt="Ícono del clima" height="200px">
-        <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
-        <p>Descripción: {{ clima_origen.weather.0.description }}</p>
-      </div>
-      {% endif %}
-
-      {% if clima_origen %}
-      <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
-        <h2>Destino: <strong>Clima en {{ clima_destino.name }}</strong></h2>
-
-        <img src="{{ clima_destino.weather_icon }}" alt="Ícono del clima" height="200px">
-        <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
-        <p>Descripción: {{ clima_destino.weather.0.description }}</p>
-      </div>
-    </div>
-    {% endif %}
+        {% if clima_origen %}
+          <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+            <h2>Destino: <strong>Clima en {{ clima_destino.name }}</strong></h2>
+            <img src="{{ clima_destino.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
+            <p>Descripción: {{ clima_destino.weather.0.description }}</p>
+          </div>
+        </div>
+        {% endif %}
     {% endif %}
   </div>
 
 </div>
+{# Finaliza el bloque "content" #}
 {% endblock content %}
 </form>

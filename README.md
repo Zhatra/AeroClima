@@ -65,25 +65,47 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
 
 ## Instalación
 
-1. **Instalar Python**: Si no tienes Python, descárgalo desde el [sitio oficial de Python](https://www.python.org/downloads/).
+1. **Clonar el repositorio**:
+   
+   Antes de comenzar la instalación, debes clonar el repositorio de AeroClima a tu máquina local.
+
+   ```bash
+   git clone https://github.com/Zhatra/AeroClima.git
+   ```
+
+   Una vez clonado, navega al directorio del proyecto:
+
+   ```bash
+   cd AeroClima
+   ```
+
+2. **Configurar la llave de OpenWeatherMap**:
+   
+   Antes de ejecutar el proyecto, necesitas configurar tu llave de la API de OpenWeatherMap. Para hacerlo:
+
+   - Ve al archivo `AeroClima/settings.py`.
+   - Busca la línea que dice `OPENWEATHERMAP_API_KEY = ''`.
+   - Coloca tu llave de la API entre las comillas simples. Por ejemplo, si tu llave es `1234567890abcdef`, debería quedar así: `OPENWEATHERMAP_API_KEY = '1234567890abcdef'`.
+
+3. **Instalar Python**: Si no tienes Python, descárgalo desde el [sitio oficial de Python](https://www.python.org/downloads/).
    
    ```bash
    # Dependiendo de tu sistema operativo, el comando puede variar.
    ```
 
-2. **Instalar Redis**: Es necesario para algunas funcionalidades. Descárgalo desde el [sitio oficial de Redis](https://redis.io/docs/getting-started/installation/).
+4. **Instalar Redis**: Es necesario para algunas funcionalidades. Descárgalo desde el [sitio oficial de Redis](https://redis.io/docs/getting-started/installation/).
 
    ```bash
    # El proceso de instalación varía según el sistema operativo.
    ```
 
-3. **Instalar `virtualenv`**: Esta herramienta te permite crear entornos virtuales en Python.
+5. **Instalar `virtualenv`**: Esta herramienta te permite crear entornos virtuales en Python.
 
    ```bash
    pip install virtualenv
    ```
 
-4. **Crear y activar un entorno virtual**: Esto asegura que los paquetes necesarios no interfieran con otros proyectos.
+6. **Crear y activar un entorno virtual**: Esto asegura que los paquetes necesarios no interfieran con otros proyectos.
 
    ```bash
    virtualenv nombre_del_entorno
@@ -103,23 +125,25 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
        source nombre_del_entorno/bin/activate
        ```
 
-5. **Instalar dependencias**: Estas son las bibliotecas y herramientas necesarias para que AeroClima funcione correctamente.
+7. **Instalar dependencias**: Estas son las bibliotecas y herramientas necesarias para que AeroClima funcione correctamente.
 
    ```bash
    pip install -r requirements.txt
    ```
 
-6. **Ejecutar servidor Redis**: Inicia el servidor Redis.
+8. **Ejecutar servidor Redis**: Inicia el servidor Redis.
 
    ```bash
    redis-server
    ```
 
-7. **Ejecutar el proyecto Django**: Con esto, tendrás AeroClima funcionando en tu máquina local.
+9. **Ejecutar el proyecto Django**: Con esto, tendrás AeroClima funcionando en tu máquina local.
 
    ```bash
    python manage.py runserver
    ```
+
+
 
 ## Desactivar el entorno virtual
 
@@ -137,5 +161,4 @@ Si ya no necesitas usar Redis, puedes detener el servidor fácilmente.
 redis-cli shutdown
 ```
 
----
 
