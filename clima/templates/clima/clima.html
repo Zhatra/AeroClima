@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load static %}
+
 <div class="body">
 
   <form method="post">
@@ -37,8 +39,7 @@
 
       <div class="col-sm-5 col-md-6">
         <h2>Origen: <strong>Clima en {{ weather_data1.name }}</strong></h2>
-
-        <img src="{{ weather_data1.weather_icon_url }}" alt="Ícono del clima">
+        <img src="{{ weather_data1.weather_icon }}" alt="Ícono del clima" height="200px">
         <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
         <p>Descripción: {{ weather_data1.weather.0.description }}</p>
       </div>
@@ -48,7 +49,7 @@
       <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
         <h2>Destino: <strong>Clima en {{ weather_data2.name }}</strong></h2>
 
-        <img src="{{ weather_data2.weather_icon_url }}" alt="Ícono del clima">
+        <img src="{{ weather_data2.weather_icon }}" alt="Ícono del clima" height="200px">
         <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
         <p>Descripción: {{ weather_data2.weather.0.description }}</p>
       </div>
@@ -57,16 +58,14 @@
     {% endif %}
   </div>
 
-  <br>
-  <br>
   <div class="container text-center">
-  {% if is_ticket_search %}
+    {% if is_ticket_search %}
     {% if clima_destino %}
     <div class="row">
       <div class="col-sm-5 col-md-6">
         <h2>Origen: <strong>Clima en {{ clima_origen.name }}</strong></h2>
 
-        <img src="{{ clima_origen.weather_icon_url }}" alt="Ícono del clima">
+        <img src="{{ clima_origen.weather_icon }}" alt="Ícono del clima" height="200px">
         <p>Temperatura: {{ clima_origen.main.temp }}°C</p>
         <p>Descripción: {{ clima_origen.weather.0.description }}</p>
       </div>
@@ -76,7 +75,7 @@
       <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
         <h2>Destino: <strong>Clima en {{ clima_destino.name }}</strong></h2>
 
-        <img src="{{ clima_destino.weather_icon_url }}" alt="Ícono del clima">
+        <img src="{{ clima_destino.weather_icon }}" alt="Ícono del clima" height="200px">
         <p>Temperatura: {{ clima_destino.main.temp }}°C</p>
         <p>Descripción: {{ clima_destino.weather.0.description }}</p>
       </div>

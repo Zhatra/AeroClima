@@ -63,13 +63,23 @@ IATA_CODES = {
 }
 
 IMAGES = {
+    'Clear': 'https://cdn-icons-png.flaticon.com/128/4015/4015543.png',
+    'Clouds': 'https://cdn-icons-png.flaticon.com/128/4015/4015374.png',
+    'Drizzle': 'https://cdn-icons-png.flaticon.com/128/4015/4015265.png',
+    'Rain': 'https://cdn-icons-png.flaticon.com/128/4015/4015291.png',
+    'Snow': 'https://cdn-icons-png.flaticon.com/128/4015/4015402.png',
+    'Thunderstorms': 'https://cdn-icons-png.flaticon.com/128/4015/4015508.png',
+    'Else': 'https://cdn-icons-png.flaticon.com/128/4015/4015221.png',
+}
+
+PIC_CODE = {
     'Clear',
     'Clouds',
     'Drizzle',
-    'Else',
     'Rain',
     'Snow',
     'Thunderstorms',
+    'Else',
 }
 
 
@@ -84,6 +94,7 @@ def fetch_from_cache_or_api(url):
     # Si no está en caché, haz la llamada real
     response = requests.get(url)
     data = response.json()
+    print(data)
 
     # Guarda la respuesta en caché por un tiempo determinado (en este caso, 43200 segundos = 12 horas)
     cache.set(cache_key, data, 43200)
@@ -96,22 +107,26 @@ def fetch_from_cache_or_api(url):
 def get_weather(city_name):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
     data = fetch_from_cache_or_api(url)
-    icon_code = data['weather'][0]['icon']
-    data['weather_icon_url'] = f"https://openweathermap.org/img/wn/{icon_code}.png"
+    icon_pic = data['weather'][0]['main']
+    if icon_pic not in PIC_CODE:
+        icon_pic = 'Else'
+    data['weather_icon'] = IMAGES[icon_pic]
     return data
 
 
 def consultar_clima(latitud, longitud):
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
     data = fetch_from_cache_or_api(url)
-    icon_code = data['weather'][0]['icon']
-    data['weather_icon_url'] = f"https://openweathermap.org/img/wn/{icon_code}.png"
+    icon_pic = data['weather'][0]['main']
+    if icon_pic not in PIC_CODE:
+        icon_pic = 'Else'
+    data['weather_icon'] = IMAGES[icon_pic]
     return data
 
 
 def get_city_from_iata(code):
     # Retorna el nombre de la ciudad si el código existe en el diccionario.
-    city = IATA_CODES.get(code)
+    city = IATA_CODES.get(code.upper())
 
     if city:
         return city
