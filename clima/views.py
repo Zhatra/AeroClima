@@ -21,7 +21,6 @@ def fetch_from_cache_or_api(url):
     # Si no está en caché, realiza la llamada a la API
     response = requests.get(url)
     data = response.json()
-    print(data)
 
     # Guarda la respuesta en caché por 6 horas (21600 segundos)
     cache.set(cache_key, data, 21600)
