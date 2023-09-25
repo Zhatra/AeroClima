@@ -93,6 +93,49 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
    # Dependiendo de tu sistema operativo, el comando puede variar.
    ```
 
+   ### Instalación de `pip` 
+   
+   `pip` es el sistema de gestión de paquetes de Python que te permitirá instalar paquetes de software escritos en Python, y lo ocuparemos para nuestro proyecto.
+   
+   #### En sistemas basados en Debian y Ubuntu:
+   
+   ```bash
+   sudo apt update
+   sudo apt install python3-pip
+   ```
+   
+   #### En sistemas basados en Red Hat y Fedora:
+   
+   ```bash
+   sudo yum install python3-pip
+   ```
+   
+   #### En sistemas basados en Arch Linux:
+   
+   ```bash
+   sudo pacman -S python-pip
+   ```
+   
+   #### En macOS:
+   
+   Si tienes instalado Homebrew:
+   
+   ```bash
+   brew install python3
+   ```
+   
+   Con la instalación de Python a través de Homebrew, `pip` también debería instalarse.
+   
+   #### En Windows:
+   
+   Si ya tienes Python instalado desde la página oficial de Python, `pip` debería haberse instalado por defecto. De lo contrario, puedes descargar `get-pip.py` para instalar la versión más reciente de `pip`:
+   
+   1. Descarga `get-pip.py` desde https://bootstrap.pypa.io/get-pip.py en tu computadora.
+   2. Abre una ventana de terminal y navega hasta la ubicación donde guardaste `get-pip.py`.
+   3. Ejecuta `python get-pip.py`.
+   
+   ---
+   
 4. **Instalar Redis**: Es necesario para algunas funcionalidades. Descárgalo desde el [sitio oficial de Redis](https://redis.io/docs/getting-started/installation/).
 
    ```bash
@@ -102,7 +145,7 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
 5. **Instalar `virtualenv`**: Esta herramienta te permite crear entornos virtuales en Python.
 
    ```bash
-   pip install virtualenv
+   pip3 install virtualenv
    ```
 
 6. **Crear y activar un entorno virtual**: Esto asegura que los paquetes necesarios no interfieran con otros proyectos.
@@ -125,7 +168,7 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
        source nombre_del_entorno/bin/activate
        ```
 
-7. **Instalar dependencias**: Estas son las bibliotecas y herramientas necesarias para que AeroClima funcione correctamente.
+7. **Instalar dependencias**: Estas son las bibliotecas y herramientas necesarias para que AeroClima funcione correctamente, recuerda ejecutar este comando teniendo el entorno virtual activado.
 
    ```bash
    pip install -r requirements.txt
