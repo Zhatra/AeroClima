@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+#decouple para poder traer la llave desde un archivo .env
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,14 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-53&mgw(nv*a9w%@q7_5^f8+7&z!)c)w=k78!6xdj%mpm6(&tix'
-
 # Aqui va tu llave de openweathermap
-OPENWEATHERMAP_API_KEY = ''
+# por defecto esta config('OPENWEATHERMAP_API_KEY') que lo que hace es traer la llave del .env 
+# Para poner tu llave solo borra 'config('OPENWEATHERMAP_API_KEY')' y pon tu llave entre ''
+OPENWEATHERMAP_API_KEY = config('OPENWEATHERMAP_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition

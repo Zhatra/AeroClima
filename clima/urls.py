@@ -1,5 +1,3 @@
-
-# Importa la función "path" desde el módulo "django.urls" para definir rutas.
 from django.urls import path
 
 # Importa todas las funciones y clases del módulo "views" de la misma carpeta (indicado por el punto).
