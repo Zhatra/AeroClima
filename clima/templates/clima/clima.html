@@ -1,31 +1,25 @@
-
-{# Extiende la plantilla base "main.html" #}
 {% extends 'main.html' %}
 
-{# Define el contenido que se insertará en el bloque "content" de "main.html" #}
 {% block content %}
 
-{# Carga las etiquetas y filtros estáticos de Django para manejar archivos estáticos #}
 {% load static %}
 
 <div class="body">
 
-  {# Formulario para ingresar el número de ticket y consultar el clima #}
+  <!-- Formulario de Consulta por Número de Ticket -->
   <form method="post">
-    {# Token de seguridad para formularios POST en Django #}
     {% csrf_token %}
 
-    {# Muestra un mensaje de error si existe #}
-    {% if error_message %}
+    {% if mensaje_error %}
     <div class="alert alert-danger" role="alert">
-    {{ error_message }}
+    {{ mensaje_error }}
     </div>
     {% endif %}
 
     <div class="ticket">
       <label for="número_de_ticket" class="form-label">Ingresa tu número de Ticket</label>
       <br>
-      <input type="text" name="ticket_number" placeholder="Ticket . . .">
+      <input type="text" name="numero_ticket" placeholder="Ticket . . .">
       <button type="submit">Consultar Clima por Ticket</button>
     </div>
 
@@ -33,13 +27,13 @@
 
   </form>
 
-  {# Formulario para ingresar las ciudades de origen y destino y consultar el clima #}
+  <!-- Formulario de Consulta por Ciudades -->
   <div class="ori">
     <form method="get">
       <label for="origen_y_destino" class="form-label">Ingresa la Ciudad de Origen y Destino</label>
       <br>
-      <input type="text" name="city_name1" placeholder="Origen . . .">
-      <input type="text" name="city_name2" placeholder="Destino . . .">
+      <input type="text" name="ciudad_nombre_1" placeholder="Origen . . .">
+      <input type="text" name="ciudad_nombre_2" placeholder="Destino . . .">
       <button type="submit">Consultar Clima</button>
     </form>
   </div>
@@ -47,24 +41,24 @@
   <br>
 
   <div class="container text-center">
-    {# Si la consulta no es por ticket, muestra el clima de las ciudades ingresadas #}
-    {% if not is_ticket_search %}
-        {% if weather_data1 %}
+    <!-- Visualización de Datos de Clima por Ciudades -->
+    {% if not es_busqueda_ticket %}
+        {% if datos_clima1 %}
         <div class="row">
           <div class="col-sm-5 col-md-6">
-            <h2>Origen: <strong>Clima en {{ weather_data1.name }}</strong></h2>
-            <img src="{{ weather_data1.weather_icon }}" alt="Ícono del clima" height="200px">
-            <p>Temperatura: {{ weather_data1.main.temp }}°C</p>
-            <p>Descripción: {{ weather_data1.weather.0.description }}</p>
+            <h2>Origen: <strong>Clima en {{ datos_clima1.name }}</strong></h2>
+            <img src="{{ datos_clima1.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ datos_clima1.main.temp }}°C</p>
+            <p>Descripción: {{ datos_clima1.weather.0.description }}</p>
           </div>
         {% endif %}
 
-        {% if weather_data2 %}
+        {% if datos_clima2 %}
           <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
-            <h2>Destino: <strong>Clima en {{ weather_data2.name }}</strong></h2>
-            <img src="{{ weather_data2.weather_icon }}" alt="Ícono del clima" height="200px">
-            <p>Temperatura: {{ weather_data2.main.temp }}°C</p>
-            <p>Descripción: {{ weather_data2.weather.0.description }}</p>
+            <h2>Destino: <strong>Clima en {{ datos_clima2.name }}</strong></h2>
+            <img src="{{ datos_clima2.weather_icon }}" alt="Ícono del clima" height="200px">
+            <p>Temperatura: {{ datos_clima2.main.temp }}°C</p>
+            <p>Descripción: {{ datos_clima2.weather.0.description }}</p>
           </div>
         </div>
         {% endif %}
@@ -72,8 +66,9 @@
   </div>
 
   <div class="container text-center">
-    {# Si la consulta es por ticket, muestra el clima de las coordenadas del ticket #}
-    {% if is_ticket_search %}
+    <!-- Visualización de Datos de Clima por Ticket -->
+
+    {% if es_busqueda_ticket %}
         {% if clima_destino %}
         <div class="row">
           <div class="col-sm-5 col-md-6">
@@ -97,6 +92,5 @@
   </div>
 
 </div>
-{# Finaliza el bloque "content" #}
 {% endblock content %}
 </form>

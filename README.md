@@ -40,10 +40,10 @@ El proyecto tiene una aplicación principal denominada `clima`.
 
 #### Clima
 
-- **Modelos**: Aunque no se definen modelos específicos, se utiliza un diccionario `IATA_CODES` para relacionar códigos IATA con nombres de ciudades.
-- **Vistas**: La vista `index` es la principal y se encarga de la lógica para consultar el clima usando nombres de ciudades o números de ticket.
-- **URLs**: La ruta principal `path("", views.index, name="index")` dirige a la vista `index`.
-- **Templates**: El template `clima.html` muestra formularios para ingresar nombres de ciudades o números de ticket y desplegar el clima correspondiente.
+- **Modelos**: Aunque no se definen modelos específicos, se utiliza un diccionario `CODIGOS_IATA` para relacionar códigos IATA con nombres de ciudades.
+- **Vistas**: La vista `inicio` es la principal y se encarga de la lógica para consultar el clima usando nombres de ciudades o números de ticket.
+- **URLs**: La ruta principal `path("", views.inicio, name="inicio")` dirige a la vista `inicio`.
+- **Templates**: La template `clima.html` muestra formularios para ingresar nombres de ciudades o números de ticket y desplegar el clima correspondiente.
 
 ### Estilos
 
@@ -53,7 +53,7 @@ Los estilos del proyecto se encuentran en `style.css` dentro de la carpeta `stat
 
 1. **Consulta de Clima**: Los usuarios pueden consultar el clima ingresando el nombre de las ciudades en los campos "Origen" y "Destino" o mediante un número de ticket.
 2. **Caché**: Para optimizar el rendimiento y minimizar las llamadas a la API, se utiliza un sistema de caché.
-3. **Búsqueda de Ciudades por Código IATA**: Si el código IATA no se encuentra en el diccionario `IATA_CODES`, se busca la ciudad más parecida usando la distancia de Levenshtein.
+3. **Búsqueda de Ciudades por Código IATA**: Si el código IATA no se encuentra en el diccionario `CODIGOS_IATA`, se busca la ciudad más parecida usando la distancia de Levenshtein.
 
 ## Contribuciones
 
@@ -84,8 +84,8 @@ Si estás interesado en mejorar AeroClima o agregar nuevas funcionalidades, ¡tu
    Antes de ejecutar el proyecto, necesitas configurar tu llave de la API de OpenWeatherMap. Para hacerlo:
 
    - Ve al archivo `AeroClima/settings.py`.
-   - Busca la línea que dice `OPENWEATHERMAP_API_KEY = ''`.
-   - Coloca tu llave de la API entre las comillas simples. Por ejemplo, si tu llave es `1234567890abcdef`, debería quedar así: `OPENWEATHERMAP_API_KEY = '1234567890abcdef'`.
+   - Busca la línea que dice `OPENWEATHERMAP_API_KEY = config('OPENWEATHERMAP_API_KEY', default='tu_llave_aqui')`.
+   - Coloca tu llave de la API entre las comillas simples del texto `tu_llave_aqui`. Por ejemplo, si tu llave es `1234567890abcdef`, debería quedar así: `OPENWEATHERMAP_API_KEY = config('OPENWEATHERMAP_API_KEY', default='1234567890abcdef')`.
 
 3. **Instalar Python**: Si no tienes Python, descárgalo desde el [sitio oficial de Python](https://www.python.org/downloads/).
    

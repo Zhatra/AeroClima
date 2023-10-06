@@ -1,3 +1,10 @@
+"""
+Módulo de Vistas de la Aplicación Clima en el Proyecto AeroClima.
+
+Este módulo define las vistas que gestionan la lógica de la aplicación,
+incluyendo la obtención y presentación de datos del clima.
+
+"""
 # Importaciones necesarias
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -6,132 +13,151 @@ from django.conf import settings
 import pandas as pd
 from django.core.cache import cache
 import Levenshtein
-from .constants import IATA_CODES, IMAGES, PIC_CODE
+from .constants import CODIGOS_IATA, IMAGENES, CODIGO_IMG
 
-# Función para obtener datos de una API, usando caché para mejorar la eficiencia
-def fetch_from_cache_or_api(url):
-    # Usa la URL como clave para el caché
-    cache_key = f"api_cache_{url}"
-    cached_response = cache.get(cache_key)
+def obtener_desde_cache_o_api(url: str) -> dict:
+    """
+    Obtiene datos desde caché o, si no están disponibles, desde la API especificada.
 
-    # Si la respuesta ya está en caché, la retorna
-    if cached_response:
-        return cached_response
+    Parámetros:
+        url (str): La URL de la API.
 
-    # Si no está en caché, realiza la llamada a la API
-    response = requests.get(url)
-    data = response.json()
+    Retorno:
+        dict: Los datos obtenidos.
+    """
+    clave_cache = f"api_cache_{url}"
+    respuesta_cache = cache.get(clave_cache)
 
-    # Guarda la respuesta en caché por 6 horas (21600 segundos)
-    cache.set(cache_key, data, 21600)
+    if respuesta_cache:
+        return respuesta_cache
 
-    return data
+    respuesta = requests.get(url)
+    datos = respuesta.json()
+    cache.set(clave_cache, datos, 21600)
 
-# Función para obtener el clima de una ciudad específica
-def get_weather(city_name):
-    # Construye la URL para la API de OpenWeatherMap
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
-    data = fetch_from_cache_or_api(url)
+    return datos
 
-    # Si la respuesta contiene información del clima, procesa y retorna los datos
-    if 'weather' in data and data['weather']:
-        icon_pic = data['weather'][0]['main']
-        if icon_pic not in PIC_CODE:
-            icon_pic = 'Else'
-        data['weather_icon'] = IMAGES[icon_pic]
-        return data
+def obtener_clima(nombre_ciudad: str) -> dict:
+    """
+    Obtiene los datos del clima para una ciudad específica.
+
+    Parámetros:
+        nombre_ciudad (str): El nombre de la ciudad.
+
+    Retorno:
+        dict: Los datos del clima.
+    """
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={nombre_ciudad}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
+    datos = obtener_desde_cache_o_api(url)
+
+    if 'weather' in datos and datos['weather']:
+        icono_clima = datos['weather'][0]['main']
+        if icono_clima not in CODIGO_IMG:
+            icono_clima = 'Else'
+        datos['weather_icon'] = IMAGENES[icono_clima]
+        return datos
     return None
 
-# Función para consultar el clima basado en latitud y longitud
-def consultar_clima(latitud, longitud):
-    # Construye la URL para la API de OpenWeatherMap
+def consultar_clima(latitud: str, longitud: str) -> dict:
+    """
+    Consulta los datos del clima basados en la latitud y longitud proporcionadas.
+
+    Parámetros:
+        latitud (str): La latitud de la ubicación.
+        longitud (str): La longitud de la ubicación.
+
+    Retorno:
+        dict: Los datos del clima.
+    """
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={settings.OPENWEATHERMAP_API_KEY}&units=metric&lang=es"
-    data = fetch_from_cache_or_api(url)
+    datos = obtener_desde_cache_o_api(url)
 
-    # Procesa y retorna los datos del clima
-    icon_pic = data['weather'][0]['main']
-    if icon_pic not in PIC_CODE:
-        icon_pic = 'Else'
-    data['weather_icon'] = IMAGES[icon_pic]
-    return data
+    icono_clima = datos['weather'][0]['main']
+    if icono_clima not in CODIGO_IMG:
+        icono_clima = 'Else'
+    datos['weather_icon'] = IMAGENES[icono_clima]
+    return datos
 
-# Función para obtener el nombre de una ciudad a partir de su código IATA
-def get_city_from_iata(code):
-    # Intenta obtener el nombre de la ciudad directamente del diccionario
-    city = IATA_CODES.get(code.upper())
+def obtener_ciudad_desde_iata(codigo: str) -> str:
+    """
+    Obtiene el nombre de una ciudad a partir de su código IATA.
 
-    if city:
-        return city
+    Parámetros:
+        codigo (str): El código IATA.
 
-    # Si no encuentra el código, busca la ciudad más parecida usando la distancia de Levenshtein
-    min_distance = float('inf')
-    closest_city = None
+    Retorno:
+        str: El nombre de la ciudad.
+    """
+    ciudad = CODIGOS_IATA.get(codigo.upper())
 
-    for city_name in IATA_CODES.values():
-        distance = Levenshtein.distance(code.lower(), city_name.lower())
-        if distance < min_distance:
-            min_distance = distance
-            closest_city = city_name
+    if ciudad:
+        return ciudad
 
-    # Si la distancia es pequeña (1 o 2), considera que es una coincidencia cercana
-    if min_distance <= 3:
-        return closest_city
+    distancia_minima = float('inf')
+    ciudad_mas_cercana = None
 
-    # Si no encuentra una coincidencia cercana, retorna el código original
-    return code
+    for nombre_ciudad in CODIGOS_IATA.values():
+        distancia = Levenshtein.distance(codigo.lower(), nombre_ciudad.lower())
+        if distancia < distancia_minima:
+            distancia_minima = distancia
+            ciudad_mas_cercana = nombre_ciudad
 
-# Vista principal
-def index(request):
-    # Intenta obtener los nombres de las ciudades a partir de los códigos IATA proporcionados
-    city_name1 = get_city_from_iata(request.GET.get('city_name1', ''))
-    city_name2 = get_city_from_iata(request.GET.get('city_name2', ''))
-    weather_data1 = {}
-    weather_data2 = {}
+    if distancia_minima <= 3:
+        return ciudad_mas_cercana
+
+    return codigo
+
+def inicio(request):
+    """
+    Vista principal para obtener y mostrar los datos del clima.
+
+    Parámetros:
+        request: Objeto HttpRequest con los datos de la solicitud.
+
+    Retorno:
+        HttpResponse: Objeto HttpResponse con los datos de la respuesta.
+    """
+    nombre_ciudad1 = obtener_ciudad_desde_iata(request.GET.get('ciudad_nombre_1', ''))
+    nombre_ciudad2 = obtener_ciudad_desde_iata(request.GET.get('ciudad_nombre_2', ''))
+    datos_clima1 = {}
+    datos_clima2 = {}
     clima_origen = {}
     clima_destino = {}
-    is_ticket_search = False
-    error_message = None
+    es_busqueda_ticket = False
+    mensaje_error = None
 
-    # Si se proporcionan nombres de ciudades, consulta el clima para esas ciudades
-    if city_name1:
-        weather_data1 = get_weather(city_name1)
-    if city_name2:
-        weather_data2 = get_weather(city_name2)
+    if nombre_ciudad1:
+        datos_clima1 = obtener_clima(nombre_ciudad1)
+    if nombre_ciudad2:
+        datos_clima2 = obtener_clima(nombre_ciudad2)
 
-    # Si el método de la solicitud es POST, significa que el usuario está buscando el clima basado en un número de ticket
     if request.method == 'POST':
-        ticket_number = request.POST['ticket_number']
+        numero_ticket = request.POST['numero_ticket']
 
-        if ticket_number:
-            is_ticket_search = True
-            # Carga el dataset con Pandas
+        if numero_ticket:
+            es_busqueda_ticket = True
             df = pd.read_csv('dataset2.csv')
+            filas_datos_ticket = df[df['num_ticket'] == numero_ticket]
+            if not filas_datos_ticket.empty:
+                datos_ticket = filas_datos_ticket.iloc[0]
 
-            # Verifica si el ticket proporcionado existe en el dataset
-            ticket_data_rows = df[df['num_ticket'] == ticket_number]
-            if not ticket_data_rows.empty:
-                ticket_data = ticket_data_rows.iloc[0]
-
-                # Consulta el clima para las coordenadas de origen y destino del ticket
                 clima_origen = consultar_clima(
-                    ticket_data['origin_latitude'], ticket_data['origin_longitude'])
+                    datos_ticket['origin_latitude'], datos_ticket['origin_longitude'])
                 clima_destino = consultar_clima(
-                    ticket_data['destination_latitude'], ticket_data['destination_longitude'])
+                    datos_ticket['destination_latitude'], datos_ticket['destination_longitude'])
             else:
-                error_message = "Por favor, ingrese un número de ticket válido."
+                mensaje_error = "Por favor, ingrese un número de ticket válido."
     else:
-        # Si no se proporciona un número de ticket, verifica si las ciudades proporcionadas son válidas
-        if not weather_data1 and city_name1:
-            error_message = "Por favor, ingrese una ciudad de origen válida."
-        if not weather_data2 and city_name2:
-            error_message = "Por favor, ingrese una ciudad de destino válida."
+        if not datos_clima1 and nombre_ciudad1:
+            mensaje_error = "Por favor, ingrese una ciudad de origen válida."
+        if not datos_clima2 and nombre_ciudad2:
+            mensaje_error = "Por favor, ingrese una ciudad de destino válida."
 
-    # Renderiza la plantilla con los datos obtenidos
     return render(request, 'clima/clima.html', {
-        'weather_data1': weather_data1,
-        'weather_data2': weather_data2,
+        'datos_clima1': datos_clima1,
+        'datos_clima2': datos_clima2,
         'clima_origen': clima_origen,
         'clima_destino': clima_destino,
-        'is_ticket_search': is_ticket_search,
-        'error_message': error_message
+        'es_busqueda_ticket': es_busqueda_ticket,
+        'mensaje_error': mensaje_error
     })

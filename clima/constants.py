@@ -1,4 +1,17 @@
-IATA_CODES = {
+"""
+Archivo de Constantes para el proyecto AeroClima.
+
+Este módulo define varias constantes utilizadas a lo largo de la aplicación AeroClima para representar
+datos estáticos y mejorar la legibilidad y mantenibilidad del código.
+
+Contenidos:
+    - CODIGOS_IATA: Un diccionario que mapea los códigos IATA de aeropuertos a sus nombres de ciudad correspondientes.
+    - IMAGENES: Un diccionario que mapea diferentes condiciones climáticas a URLs de imágenes representativas.
+    - CODIGO_IMG: Un conjunto que enumera todos los códigos de condición climática que tienen imágenes asociadas.
+
+"""
+
+CODIGOS_IATA = {
     'TLC': 'Toluca',
     'MTY': 'Monterrey',
     'MEX': 'Ciudad de Mexico',
@@ -53,7 +66,8 @@ IATA_CODES = {
     'SCL': 'Santiago',
 }
 
-IMAGES = {
+
+IMAGENES = {
     'Clear': 'https://cdn-icons-png.flaticon.com/128/4015/4015543.png',
     'Clouds': 'https://cdn-icons-png.flaticon.com/128/4015/4015374.png',
     'Drizzle': 'https://cdn-icons-png.flaticon.com/128/4015/4015265.png',
@@ -63,7 +77,8 @@ IMAGES = {
     'Else': 'https://cdn-icons-png.flaticon.com/128/4015/4015221.png',
 }
 
-PIC_CODE = {
+
+CODIGO_IMG = {
     'Clear',
     'Clouds',
     'Drizzle',
